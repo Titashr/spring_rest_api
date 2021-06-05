@@ -24,8 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Employee UpdateEmployee(Employee e) throws apiExceptions {
-		Optional<Employee> employee = this.employeeRepo.findById(e.getId());
+	public Employee UpdateEmployee(Employee e) {
+		Optional<Employee> employee = employeeRepo.findById(e.getId());
 		
 		if(employee.isPresent()) {
 			Employee empToUpdate = employee.get();
@@ -39,12 +39,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public List<Employee> GetAllEmployees() {
+		long employeeCount = employeeRepo.count();
+		if(employeeCount > 0)
 		return employeeRepo.findAll();
+		else throw new apiExceptions("No employee added to table");
 	}
 
 	@Override
-	public void DeleteEmployee(Long Id) throws apiExceptions {
-		Optional<Employee> employee = this.employeeRepo.findById(Id);
+	public void DeleteEmployee(Long Id) {
+		Optional<Employee> employee = employeeRepo.findById(Id);
 		if(employee.isPresent())
 		employeeRepo.deleteById(Id);
 		else throw new apiExceptions("Employee ID not found");
@@ -52,8 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Employee GetEmployeeById(Long Id) throws apiExceptions {
-		Optional<Employee> employee = this.employeeRepo.findById(Id);
+	public Employee GetEmployeeById(Long Id) {
+		Optional<Employee> employee = employeeRepo.findById(Id);
 		if(employee.isPresent())
 		return employeeRepo.getById(Id);
 		else throw new apiExceptions("Employee ID not found");

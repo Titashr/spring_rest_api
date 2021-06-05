@@ -10,9 +10,7 @@ import com.example.restAPI.controller.EmployeeController;
 public class Demo1Application {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(Demo1Application.class, args);
-		context.getBean(EmployeeController.class);
-		
+		SpringApplication.run(Demo1Application.class, args);		
 	}
 
 }
